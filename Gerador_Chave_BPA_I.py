@@ -1,7 +1,7 @@
 #Script para correção de procedimentos de Preventivo e alteração de Chave Verificadora do BPA-I.
 import time, datetime
 
-def geradorNovaChave(lista:list) -> list:
+def geradorNovaChave(lista:list,chaveInicial) -> list:
     #Gera uma nova chave de verificação para o BPA seguindo o layout de importação do MS.
     soma = 0
     numProcedimentos = 0
@@ -16,6 +16,10 @@ def geradorNovaChave(lista:list) -> list:
     # [(somatório das quantidades de procedimentos) + (somatório dos códigos de procedimento)] dividido por 1111 (mil cento e onze);
     # 2. Somar 1111 (mil cento e onze) ao resto.
     novaChave = ((numProcedimentos + soma) % 1111) + 1111
+
+    valor = str(lista[0]).replace(str(chaveInicial),str(novaChave))
+    lista[0] = valor
+
 
     return novaChave
 
@@ -56,7 +60,7 @@ with open(nomeArquivo, "r") as arquivo:
 chaveInicial = lista[0][23:27]
 
 lista = corretorProcedimentos(lista)
-novaChave = geradorNovaChave(lista)
+novaChave = geradorNovaChave(lista,chaveInicial)
 
 # Exibe a nova chave após o cálculo
 print(f"\nChave inicial: {chaveInicial} // Nova Chave: {novaChave}")
