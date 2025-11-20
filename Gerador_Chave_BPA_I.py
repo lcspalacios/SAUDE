@@ -1,5 +1,4 @@
 #Script para correção de procedimentos de Preventivo e alteração de Chave Verificadora do BPA-I.
-import time, datetime
 
 def geradorNovaChave(lista:list,chaveInicial) -> list:
     #Gera uma nova chave de verificação para o BPA seguindo o layout de importação do MS.
@@ -70,5 +69,6 @@ novoNomeArquivo = input("\nDigite o nome do novo arquivo a ser salvo: ")
 with open(novoNomeArquivo,"a") as novoArquivo:
     for linha in lista:
         novoArquivo.write(str(linha))
+
 
 input("\nPressione qualquer tecla para sair...")
